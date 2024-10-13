@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowLeft, Clock, BarChart, User, BookOpen, CheckCircle } from 'lucide-react'
+import { ArrowLeft, Clock, BarChart, User, BookOpen, Star } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
@@ -10,9 +10,9 @@ import { useParams } from 'next/navigation'
 
 // Sample course data (in a real app, this would come from an API or database)
 const courses = [
-  { id: 1, title: "Introduction to React", instructor: "Jane Doe", duration: "4 weeks", level: "Beginner", description: "Learn the basics of React, including components, state, and props. Build your first React application and understand the core concepts of this popular library.", topics: ["JSX", "Components", "State", "Props", "Hooks"] },
-  { id: 2, title: "Advanced JavaScript Concepts", instructor: "John Smith", duration: "6 weeks", level: "Intermediate", description: "Dive deep into advanced JavaScript concepts such as closures, prototypes, and asynchronous programming. Enhance your skills and write more efficient and powerful code.", topics: ["Closures", "Prototypes", "Async/Await", "ES6+", "Design Patterns"] },
-  { id: 3, title: "Python for Data Science", instructor: "Emily Brown", duration: "8 weeks", level: "Intermediate", description: "Explore how Python is used in data science. Learn about data manipulation, visualization, and basic machine learning techniques using popular libraries like Pandas and Scikit-learn.", topics: ["Pandas", "NumPy", "Matplotlib", "Scikit-learn", "Jupyter Notebooks"] },
+  { id: 1, title: "Introduction to React", instructor: "Jane Doe", duration: "4 weeks", level: "Beginner", description: "Learn the basics of React, including components, state, and props. Build your first React application and understand the core concepts of this popular library.", rating: 4.7, enrollments: 1234 },
+  { id: 2, title: "Advanced JavaScript Concepts", instructor: "John Smith", duration: "6 weeks", level: "Intermediate", description: "Dive deep into advanced JavaScript concepts such as closures, prototypes, and asynchronous programming. Enhance your skills and write more efficient and powerful code.", rating: 4.9, enrollments: 987 },
+  { id: 3, title: "Python for Data Science", instructor: "Emily Brown", duration: "8 weeks", level: "Intermediate", description: "Explore how Python is used in data science. Learn about data manipulation, visualization, and basic machine learning techniques using popular libraries like Pandas and Scikit-learn.", rating: 4.8, enrollments: 2345 },
 ]
 
 export function CourseDetailPageComponent() {
@@ -54,56 +54,48 @@ export function CourseDetailPageComponent() {
       </header>
 
       <main className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold mb-6">{course.title}</h1>
-          <div className="bg-card rounded-lg shadow-lg overflow-hidden">
-            <div className="p-6 md:p-8">
-              <p className="text-lg text-muted-foreground mb-6">{course.description}</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="flex items-center">
-                  <User className="h-5 w-5 mr-2 text-primary" />
-                  <span>{course.instructor}</span>
-                </div>
-                <div className="flex items-center">
-                  <Clock className="h-5 w-5 mr-2 text-primary" />
-                  <span>{course.duration}</span>
-                </div>
-                <div className="flex items-center">
-                  <BarChart className="h-5 w-5 mr-2 text-primary" />
-                  <span>{course.level}</span>
-                </div>
+        <div className="max-w-3xl mx-auto">
+          <Card className="overflow-hidden">
+            <div className="bg-gradient-to-r from-primary to-primary-foreground h-32"></div>
+            <CardContent className="relative pt-16 pb-8 px-6 md:px-8">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background rounded-full p-4 shadow-lg">
+                <BookOpen className="h-12 w-12 text-primary" />
+              </div>
+              <h1 className="text-3xl font-bold text-center mb-4">{course.title}</h1>
+              <p className="text-center text-muted-foreground mb-6">{course.description}</p>
+              <div className="flex justify-center items-center space-x-4 mb-8">
+                <Badge variant="secondary" className="text-sm px-3 py-1">
+                  <Clock className="h-4 w-4 mr-1 inline" />
+                  {course.duration}
+                </Badge>
+                <Badge variant="secondary" className="text-sm px-3 py-1">
+                  <BarChart className="h-4 w-4 mr-1 inline" />
+                  {course.level}
+                </Badge>
+                <Badge variant="secondary" className="text-sm px-3 py-1">
+                  <Star className="h-4 w-4 mr-1 inline" />
+                  {course.rating.toFixed(1)}
+                </Badge>
               </div>
               <Separator className="my-8" />
-              <div className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">What you'll learn</h2>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {course.topics.map((topic, index) => (
-                    <li key={index} className="flex items-start">
-                      <CheckCircle className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{topic}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <Separator className="my-8" />
-              <div>
-                <h2 className="text-2xl font-semibold mb-4">Course Content</h2>
-                <div className="space-y-4">
-                  {course.topics.map((topic, index) => (
-                    <Card key={index}>
-                      <CardContent className="p-4 flex items-center justify-between">
-                        <span className="font-medium">Module {index + 1}: {topic}</span>
-                        <Badge variant="secondary">Preview</Badge>
-                      </CardContent>
-                    </Card>
-                  ))}
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div className="flex items-center mb-4 md:mb-0">
+                  <User className="h-10 w-10 text-primary mr-3" />
+                  <div>
+                    <p className="font-semibold">{course.instructor}</p>
+                    <p className="text-sm text-muted-foreground">Course Instructor</p>
+                  </div>
+                </div>
+                <div className="text-center md:text-right">
+                  <p className="font-semibold text-2xl">{course.enrollments.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Students Enrolled</p>
                 </div>
               </div>
-            </div>
+            </CardContent>
             <div className="bg-muted p-6 md:p-8">
-              <Button className="w-full text-lg py-6">Enroll in Course</Button>
+              <Button className="w-full text-lg py-6">Enroll Now</Button>
             </div>
-          </div>
+          </Card>
         </div>
       </main>
 

@@ -1,79 +1,99 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { BookOpen, Search } from "lucide-react";
 import Link from "next/link";
 
-export function Homepage() {
-  // This would typically come from a database or API
-  const featuredCourses = [
-    {
-      id: 1,
-      title: "Introduction to Python",
-      provider: "CodeAcademy",
-      category: "Programming",
-    },
-    {
-      id: 2,
-      title: "Web Development Bootcamp",
-      provider: "Udemy",
-      category: "Web Development",
-    },
-    {
-      id: 3,
-      title: "Machine Learning Basics",
-      provider: "Coursera",
-      category: "Data Science",
-    },
-  ];
+// This would typically come from an API or database
+const allCourses = [
+  {
+    id: 1,
+    title: "Introduction to Python",
+    provider: "CodeAcademy",
+    category: "Programming",
+  },
+  {
+    id: 2,
+    title: "Web Development Bootcamp",
+    provider: "Udemy",
+    category: "Web Development",
+  },
+  {
+    id: 3,
+    title: "Machine Learning Basics",
+    provider: "Coursera",
+    category: "Data Science",
+  },
+  {
+    id: 4,
+    title: "JavaScript Fundamentals",
+    provider: "freeCodeCamp",
+    category: "Programming",
+  },
+  {
+    id: 5,
+    title: "Digital Marketing Essentials",
+    provider: "Google Digital Garage",
+    category: "Marketing",
+  },
+  {
+    id: 6,
+    title: "Graphic Design Principles",
+    provider: "Canva",
+    category: "Design",
+  },
+  {
+    id: 7,
+    title: "Introduction to Artificial Intelligence",
+    provider: "edX",
+    category: "Computer Science",
+  },
+  {
+    id: 8,
+    title: "Financial Planning and Analysis",
+    provider: "Coursera",
+    category: "Finance",
+  },
+  {
+    id: 9,
+    title: "Creative Writing Workshop",
+    provider: "FutureLearn",
+    category: "Arts",
+  },
+];
 
-  const allCourses = [
-    {
-      id: 4,
-      title: "JavaScript Fundamentals",
-      provider: "freeCodeCamp",
-      category: "Programming",
-    },
-    {
-      id: 5,
-      title: "Digital Marketing Essentials",
-      provider: "Google Digital Garage",
-      category: "Marketing",
-    },
-    {
-      id: 6,
-      title: "Graphic Design Principles",
-      provider: "Canva",
-      category: "Design",
-    },
-    {
-      id: 7,
-      title: "Introduction to Artificial Intelligence",
-      provider: "edX",
-      category: "Computer Science",
-    },
-    {
-      id: 8,
-      title: "Financial Planning and Analysis",
-      provider: "Coursera",
-      category: "Finance",
-    },
-    {
-      id: 9,
-      title: "Creative Writing Workshop",
-      provider: "FutureLearn",
-      category: "Arts",
-    },
-  ];
+export function Homepage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [filteredCourses, setFilteredCourses] = useState(allCourses);
+
+  useEffect(() => {
+    const filtered = allCourses.filter(
+      (course) =>
+        (course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          course.provider.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        (selectedCategory === "" || course.category === selectedCategory)
+    );
+    setFilteredCourses(filtered);
+  }, [searchTerm, selectedCategory]);
+
+  const categories = [...new Set(allCourses.map((course) => course.category))];
 
   return (
     <div className="min-h-screen bg-background">
@@ -115,66 +135,67 @@ export function Homepage() {
               Expand your knowledge with our curated collection of free courses
               from around the web.
             </p>
-            <div className="max-w-md mx-auto flex">
+            <div className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-4">
               <Input
                 type="search"
                 placeholder="Search courses..."
-                className="rounded-r-none"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="flex-grow"
               />
-              <Button type="submit" className="rounded-l-none">
-                <Search className="h-4 w-4 mr-2" />
-                Search
-              </Button>
+              <Select
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              >
+                <SelectTrigger className="w-full sm:w-[180px]">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="hello">All Categories</SelectItem>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </section>
 
         <section className="py-12">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-6">Featured Courses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {featuredCourses.map((course) => (
-                <Card key={course.id}>
-                  <CardHeader>
-                    <CardTitle>{course.title}</CardTitle>
-                    <CardDescription>{course.provider}</CardDescription>
-                  </CardHeader>
-                  <CardFooter>
-                    <Button variant="outline" className="w-full">
-                      Learn More
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-12 bg-muted">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-6">All Courses</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {allCourses.map((course) => (
-                <Card key={course.id}>
-                  <CardHeader>
-                    <CardTitle>{course.title}</CardTitle>
-                    <CardDescription>{course.provider}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      Category: {course.category}
-                    </p>
-                  </CardContent>
-                  <CardFooter>
-                    <Link href={`/detail/${1}`}>
-                      <Button variant="outline" className="w-full">
-                        View Course
-                      </Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
+            <h2 className="text-2xl font-bold mb-6">Available Courses</h2>
+            {filteredCourses.length === 0 ? (
+              <p className="text-center text-muted-foreground">
+                No courses found. Try adjusting your search or filter.
+              </p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredCourses.map((course) => (
+                  <Card key={course.id}>
+                    <CardHeader>
+                      <CardTitle>{course.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        Provider: {course.provider}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Category: {course.category}
+                      </p>
+                    </CardContent>
+                    <CardFooter>
+                      <Link href={`/detail/${1}`}>
+                        <Button variant="outline" className="w-full">
+                          View Course
+                        </Button>
+                      </Link>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>
