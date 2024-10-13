@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { BookOpen, Search } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import Link from "next/link";
 
 // This would typically come from an API or database
