@@ -1,9 +1,10 @@
 'use client'
 
-import { ArrowLeft, Clock, BarChart, User, BookOpen } from 'lucide-react'
+import { ArrowLeft, Clock, BarChart, User, BookOpen, CheckCircle } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
@@ -23,17 +24,15 @@ export function CourseDetailPageComponent() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Course Not Found</CardTitle>
-            <CardDescription>The requested course could not be found.</CardDescription>
-          </CardHeader>
-          <CardFooter>
+          <CardContent className="pt-6">
+            <h1 className="text-2xl font-bold mb-4">Course Not Found</h1>
+            <p className="text-muted-foreground mb-6">The requested course could not be found.</p>
             <Link href="/" passHref>
               <Button className="w-full">
                 <ArrowLeft className="mr-2 h-4 w-4" /> Back to Courses
               </Button>
             </Link>
-          </CardFooter>
+          </CardContent>
         </Card>
       </div>
     )
@@ -41,7 +40,7 @@ export function CourseDetailPageComponent() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="bg-primary text-primary-foreground shadow-lg">
+      <header className="bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 py-6 flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-8 w-8" />
@@ -54,56 +53,61 @@ export function CourseDetailPageComponent() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle className="text-3xl">{course.title}</CardTitle>
-            <CardDescription className="text-lg">{course.description}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center">
-                <User className="h-5 w-5 mr-2 text-primary" />
-                <span>Instructor: {course.instructor}</span>
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl font-bold mb-6">{course.title}</h1>
+          <div className="bg-card rounded-lg shadow-lg overflow-hidden">
+            <div className="p-6 md:p-8">
+              <p className="text-lg text-muted-foreground mb-6">{course.description}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="flex items-center">
+                  <User className="h-5 w-5 mr-2 text-primary" />
+                  <span>{course.instructor}</span>
+                </div>
+                <div className="flex items-center">
+                  <Clock className="h-5 w-5 mr-2 text-primary" />
+                  <span>{course.duration}</span>
+                </div>
+                <div className="flex items-center">
+                  <BarChart className="h-5 w-5 mr-2 text-primary" />
+                  <span>{course.level}</span>
+                </div>
               </div>
-              <div className="flex items-center">
-                <Clock className="h-5 w-5 mr-2 text-primary" />
-                <span>Duration: {course.duration}</span>
+              <Separator className="my-8" />
+              <div className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">What you'll learn</h2>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {course.topics.map((topic, index) => (
+                    <li key={index} className="flex items-start">
+                      <CheckCircle className="h-5 w-5 mr-2 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{topic}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="flex items-center">
-                <BarChart className="h-5 w-5 mr-2 text-primary" />
-                <span>Level: {course.level}</span>
+              <Separator className="my-8" />
+              <div>
+                <h2 className="text-2xl font-semibold mb-4">Course Content</h2>
+                <div className="space-y-4">
+                  {course.topics.map((topic, index) => (
+                    <Card key={index}>
+                      <CardContent className="p-4 flex items-center justify-between">
+                        <span className="font-medium">Module {index + 1}: {topic}</span>
+                        <Badge variant="secondary">Preview</Badge>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </div>
             </div>
-
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Course Topics</h2>
-              <div className="flex flex-wrap gap-2">
-                {course.topics.map((topic, index) => (
-                  <Badge key={index} variant="secondary">{topic}</Badge>
-                ))}
-              </div>
+            <div className="bg-muted p-6 md:p-8">
+              <Button className="w-full text-lg py-6">Enroll in Course</Button>
             </div>
-
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Course Content</h2>
-              <ul className="space-y-2">
-                {course.topics.map((topic, index) => (
-                  <li key={index} className="flex items-center">
-                    <span className="h-2 w-2 bg-primary rounded-full mr-2" aria-hidden="true"></span>
-                    <span>{topic}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full text-lg py-6">Start Course</Button>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       </main>
 
-      <footer className="bg-muted mt-8">
+      <footer className="bg-muted mt-12">
         <div className="container mx-auto px-4 py-6 text-center text-muted-foreground">
           <p>&copy; 2024 FreeCourseHub. All rights reserved.</p>
         </div>
