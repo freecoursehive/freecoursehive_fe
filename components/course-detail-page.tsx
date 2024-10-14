@@ -1,17 +1,18 @@
 'use client'
 
-import { ArrowLeft, Clock, BarChart, User, BookOpen } from 'lucide-react'
+import { ArrowLeft, Clock, BarChart, User, BookOpen, Star } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
 // Sample course data (in a real app, this would come from an API or database)
 const courses = [
-  { id: 1, title: "Introduction to React", instructor: "Jane Doe", duration: "4 weeks", level: "Beginner", description: "Learn the basics of React, including components, state, and props. Build your first React application and understand the core concepts of this popular library.", topics: ["JSX", "Components", "State", "Props", "Hooks"] },
-  { id: 2, title: "Advanced JavaScript Concepts", instructor: "John Smith", duration: "6 weeks", level: "Intermediate", description: "Dive deep into advanced JavaScript concepts such as closures, prototypes, and asynchronous programming. Enhance your skills and write more efficient and powerful code.", topics: ["Closures", "Prototypes", "Async/Await", "ES6+", "Design Patterns"] },
-  { id: 3, title: "Python for Data Science", instructor: "Emily Brown", duration: "8 weeks", level: "Intermediate", description: "Explore how Python is used in data science. Learn about data manipulation, visualization, and basic machine learning techniques using popular libraries like Pandas and Scikit-learn.", topics: ["Pandas", "NumPy", "Matplotlib", "Scikit-learn", "Jupyter Notebooks"] },
+  { id: 1, title: "Introduction to React", instructor: "Jane Doe", duration: "4 weeks", level: "Beginner", description: "Learn the basics of React, including components, state, and props. Build your first React application and understand the core concepts of this popular library.", rating: 4.7, enrollments: 1234 },
+  { id: 2, title: "Advanced JavaScript Concepts", instructor: "John Smith", duration: "6 weeks", level: "Intermediate", description: "Dive deep into advanced JavaScript concepts such as closures, prototypes, and asynchronous programming. Enhance your skills and write more efficient and powerful code.", rating: 4.9, enrollments: 987 },
+  { id: 3, title: "Python for Data Science", instructor: "Emily Brown", duration: "8 weeks", level: "Intermediate", description: "Explore how Python is used in data science. Learn about data manipulation, visualization, and basic machine learning techniques using popular libraries like Pandas and Scikit-learn.", rating: 4.8, enrollments: 2345 },
 ]
 
 export function CourseDetailPageComponent() {
@@ -23,17 +24,15 @@ export function CourseDetailPageComponent() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>Course Not Found</CardTitle>
-            <CardDescription>The requested course could not be found.</CardDescription>
-          </CardHeader>
-          <CardFooter>
+          <CardContent className="pt-6">
+            <h1 className="text-2xl font-bold mb-4">Course Not Found</h1>
+            <p className="text-muted-foreground mb-6">The requested course could not be found.</p>
             <Link href="/" passHref>
               <Button className="w-full">
                 <ArrowLeft className="mr-2 h-4 w-4" /> Back to Courses
               </Button>
             </Link>
-          </CardFooter>
+          </CardContent>
         </Card>
       </div>
     )
@@ -41,7 +40,7 @@ export function CourseDetailPageComponent() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="bg-primary text-primary-foreground shadow-lg">
+      <header className="bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 py-6 flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-8 w-8" />
@@ -54,56 +53,53 @@ export function CourseDetailPageComponent() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle className="text-3xl">{course.title}</CardTitle>
-            <CardDescription className="text-lg">{course.description}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center">
-                <User className="h-5 w-5 mr-2 text-primary" />
-                <span>Instructor: {course.instructor}</span>
+      <main className="container mx-auto px-4 py-12">
+        <div className="max-w-3xl mx-auto">
+          <Card className="overflow-hidden">
+            <div className="bg-gradient-to-r from-primary to-primary-foreground h-32"></div>
+            <CardContent className="relative pt-16 pb-8 px-6 md:px-8">
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background rounded-full p-4 shadow-lg">
+                <BookOpen className="h-12 w-12 text-primary" />
               </div>
-              <div className="flex items-center">
-                <Clock className="h-5 w-5 mr-2 text-primary" />
-                <span>Duration: {course.duration}</span>
+              <h1 className="text-3xl font-bold text-center mb-4">{course.title}</h1>
+              <p className="text-center text-muted-foreground mb-6">{course.description}</p>
+              <div className="flex justify-center items-center space-x-4 mb-8">
+                <Badge variant="secondary" className="text-sm px-3 py-1">
+                  <Clock className="h-4 w-4 mr-1 inline" />
+                  {course.duration}
+                </Badge>
+                <Badge variant="secondary" className="text-sm px-3 py-1">
+                  <BarChart className="h-4 w-4 mr-1 inline" />
+                  {course.level}
+                </Badge>
+                <Badge variant="secondary" className="text-sm px-3 py-1">
+                  <Star className="h-4 w-4 mr-1 inline" />
+                  {course.rating.toFixed(1)}
+                </Badge>
               </div>
-              <div className="flex items-center">
-                <BarChart className="h-5 w-5 mr-2 text-primary" />
-                <span>Level: {course.level}</span>
+              <Separator className="my-8" />
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div className="flex items-center mb-4 md:mb-0">
+                  <User className="h-10 w-10 text-primary mr-3" />
+                  <div>
+                    <p className="font-semibold">{course.instructor}</p>
+                    <p className="text-sm text-muted-foreground">Course Instructor</p>
+                  </div>
+                </div>
+                <div className="text-center md:text-right">
+                  <p className="font-semibold text-2xl">{course.enrollments.toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">Students Enrolled</p>
+                </div>
               </div>
+            </CardContent>
+            <div className="bg-muted p-6 md:p-8">
+              <Button className="w-full text-lg py-6">Enroll Now</Button>
             </div>
-
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Course Topics</h2>
-              <div className="flex flex-wrap gap-2">
-                {course.topics.map((topic, index) => (
-                  <Badge key={index} variant="secondary">{topic}</Badge>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Course Content</h2>
-              <ul className="space-y-2">
-                {course.topics.map((topic, index) => (
-                  <li key={index} className="flex items-center">
-                    <span className="h-2 w-2 bg-primary rounded-full mr-2" aria-hidden="true"></span>
-                    <span>{topic}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full text-lg py-6">Start Course</Button>
-          </CardFooter>
-        </Card>
+          </Card>
+        </div>
       </main>
 
-      <footer className="bg-muted mt-8">
+      <footer className="bg-muted mt-12">
         <div className="container mx-auto px-4 py-6 text-center text-muted-foreground">
           <p>&copy; 2024 FreeCourseHub. All rights reserved.</p>
         </div>
