@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { ArrowLeft, Clock, BarChart, User, BookOpen, Star } from "lucide-react";
@@ -7,51 +8,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { allCourses } from "@/lib/data";
+// import { allCourses } from "@/lib/data";
 import useDataStore from "@/store/dataContext";
 
 // Sample course data (in a real app, this would come from an API or database)
-const courses = [
-  {
-    id: 1,
-    title: "Introduction to React",
-    instructor: "Jane Doe",
-    duration: "4 weeks",
-    level: "Beginner",
-    description:
-      "Learn the basics of React, including components, state, and props. Build your first React application and understand the core concepts of this popular library.",
-    rating: 4.7,
-    enrollments: 1234,
-  },
-  {
-    id: 2,
-    title: "Advanced JavaScript Concepts",
-    instructor: "John Smith",
-    duration: "6 weeks",
-    level: "Intermediate",
-    description:
-      "Dive deep into advanced JavaScript concepts such as closures, prototypes, and asynchronous programming. Enhance your skills and write more efficient and powerful code.",
-    rating: 4.9,
-    enrollments: 987,
-  },
-  {
-    id: 3,
-    title: "Python for Data Science",
-    instructor: "Emily Brown",
-    duration: "8 weeks",
-    level: "Intermediate",
-    description:
-      "Explore how Python is used in data science. Learn about data manipulation, visualization, and basic machine learning techniques using popular libraries like Pandas and Scikit-learn.",
-    rating: 4.8,
-    enrollments: 2345,
-  },
-];
 
 export function CourseDetailPageComponent() {
-  const data = useDataStore((state) => state.data);
+  const data = useDataStore((state: any) => state.data);
   const params = useParams();
   const id = typeof params.id === "string" ? parseInt(params.id, 10) : NaN;
-  const course = data.find((c) => c.id === id);
+  const course = data.find((c: any) => c.id === id);
 
   if (!course) {
     return (

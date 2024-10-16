@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -34,7 +35,7 @@ export function Homepage() {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const setData = useDataStore((state) => state.setData);
+  const setData = useDataStore((state: any) => state.setData);
 
   // Fetch data from API when the component mounts
   useEffect(() => {
@@ -160,7 +161,7 @@ export function Homepage() {
             ) : (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {paginatedCourses.map((course) => (
+                  {paginatedCourses.map((course: any) => (
                     <Card key={course.id}>
                       <CardHeader>
                         <CardTitle>{course.title}</CardTitle>
