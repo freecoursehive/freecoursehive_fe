@@ -20,242 +20,42 @@ import {
 import { BookOpen } from "lucide-react";
 import Link from "next/link";
 
-// This would typically come from an API or database
-const allCourses = [
-  {
-      "id": 1,
-      "title": "Business Analysis & Process Management",
-      "provider": "Coursera Project Network",
-      "category": "study",
-      "detail": "Skills you'll gain: Business Analysis, Business Process Management",
-      "rating": "4.4"
-  },
-  {
-      "id": 2,
-      "title": "Build a free website with WordPress",
-      "provider": "Coursera Project Network",
-      "category": "study",
-      "detail": "Skills you'll gain: Creativity, Web Design, Web Development",
-      "rating": "4.4"
-  },
-  {
-      "id": 3,   
-      "title": "Introduction to Microsoft Excel",
-      "provider": "Coursera Project Network",
-      "category": "study",
-      "detail": "Skills you'll gain: Data Analysis, Microsoft Excel, Data Management, Leadership and Management",
-      "rating": "4.6"
-  },
-  {
-      "id": 4,
-      "title": "English for Common Interactions in the Workplace: Basic Level",
-      "provider": "Pontificia Universidad Cat\u00c3\u00b3lica de Chile",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "4.7"
-  },
-  {
-      "id": 5,
-      "title": "First Step Korean",
-      "provider": "Yonsei University",
-      "category": "study",
-      "detail": "Skills you'll gain: Culture, Writing",
-      "rating": "4.9"
-  },
-  {
-      "id": 6,
-      "title": "Investment Risk Management",
-      "provider": "Coursera Project Network",
-      "category": "study",
-      "detail": "Skills you'll gain: Leadership and Management, Risk Management",
-      "rating": "4.3"
-  },
-  {
-      "id": 7,
-      "title": "Creative Thinking: Techniques and Tools for Success",
-      "provider": "Imperial College London",
-      "category": "study",
-      "detail": "Skills you'll gain: Creativity, Problem Solving, Collaboration",
-      "rating": "4.7"
-  },
-  {
-      "id": 8,
-      "title": "English for Career Development",
-      "provider": "University of Pennsylvania",
-      "category": "study",
-      "detail": "Skills you'll gain: Business Communication, Human Resources, Human Resources Operations, Application Development, People Analysis",
-      "rating": "4.8"
-  },
-  {
-      "id": 9,
-      "title": "Python for Data Science, AI & Development",
-      "provider": "IBM",
-      "category": "study",
-      "detail": "Skills you'll gain: Computer Programming, Data Analysis, Python Programming",
-      "rating": "4.6"
-  },
-  {
-      "id": 10,
-      "title": "Cybersecurity for Everyone",
-      "provider": "University of Maryland, College Park",
-      "category": "study",
-      "detail": "Skills you'll gain: Cyberattacks, Human Computer Interaction, Network Security, Security Engineering, Security Strategy, Computer Security Models, Leadership and Management, Risk Management, Software Security, Correlation And Dependence",
-      "rating": "4.7"
-  },
-  {
-      "id": 11,
-      "title": "Food & Beverage Management",
-      "provider": "Universit\u00c3\u00a0 Bocconi",
-      "category": "study",
-      "detail": "Skills you'll gain: Design and Product, Marketing, Business Analysis, Customer Analysis, Product Marketing, Product Strategy, Communication, Entrepreneurship, Leadership and Management, Marketing Management, Strategy",
-      "rating": "4.8"
-  },
-  {
-      "id": 12,
-      "title": "Financial Markets",
-      "provider": "Yale University",
-      "category": "study",
-      "detail": "Skills you'll gain: Finance, Risk Management, Banking, Behavioral Economics, Critical Thinking, Decision Making, Financial Analysis, Innovation, Regulations and Compliance",
-      "rating": "4.8"
-  },
-  {
-      "id": 13,
-      "title": "Humanities",
-      "provider": "PredictionX: Lost Without Longitude",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 14,
-      "title": "Humanities",
-      "provider": "PredictionX: Omens, Oracles & Prophecies",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 15,
-      "title": "Social Sciences",
-      "provider": "Systematic Approaches to Policy Design",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 16,
-      "title": "Social Sciences",
-      "provider": "New Ideas for Nonprofit Leaders Webinar",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 17,
-      "title": "Social Sciences",
-      "provider": "4P Model for Strategic Leadership Podcasts",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 18,
-      "title": "Social Sciences",
-      "provider": "The Science of Corresponding with Busy People Webinar",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 19,
-      "title": "Computer Science",
-      "provider": "CS50's Introduction to Programming with Scratch",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 20,
-      "title": "Social Sciences",
-      "provider": "Global News & Technology Leadership in Challenging Times",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 21,
-      "title": "Social Sciences",
-      "provider": "Our Information Emergency: Navigating the Media Environment in 2021",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 22,
-      "title": "Computer Science",
-      "provider": "CS50's Introduction to Artificial Intelligence with Python",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 23,
-      "title": "Computer Science",
-      "provider": "CS50 for Lawyers",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 24,
-      "title": "Business",
-      "provider": "Negotiating Salary",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 25,
-      "title": "Business",
-      "provider": "Resilient Leadership",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 26,
-      "title": "Health & Medicine",
-      "provider": "Clinical Care for Autistic Adults",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  },
-  {
-      "id": 27,
-      "title": "Social Sciences",
-      "provider": "A Darkening Horizon: Nuclear Dangers Around the World with Matthew Bunn",
-      "category": "study",
-      "detail": "N/A",
-      "rating": "N/A"
-  }
-]
-
+// Fetch data from API and populate the courses array
 export function Homepage() {
+  const [allCourses, setAllCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [filteredCourses, setFilteredCourses] = useState(allCourses);
+  const [filteredCourses, setFilteredCourses] = useState([]);
 
+  // Fetch data from API when the component mounts
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/courses");
+        const data = await response.json();
+        console.log(data);  // Log the response data to inspect its structure
+        setAllCourses(data);
+        setFilteredCourses(data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+  
+    fetchCourses();
+  }, []);
+  
+  // Filter courses based on search term and selected category
   useEffect(() => {
     const filtered = allCourses.filter(
-      (course) =>
+      (course: any) =>
         (course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           course.provider.toLowerCase().includes(searchTerm.toLowerCase())) &&
-        (selectedCategory === "" || course.category === selectedCategory)
+          (selectedCategory === "" || selectedCategory === "all" || course.category === selectedCategory)
     );
     setFilteredCourses(filtered);
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, allCourses]);
 
-  const categories = [...new Set(allCourses.map((course) => course.category))];
+  const categories = [...new Set(allCourses.map((course: any) => course.category))];
 
   return (
     <div className="min-h-screen bg-background">
@@ -313,8 +113,8 @@ export function Homepage() {
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="hello">All Categories</SelectItem>
-                  {categories.map((category) => (
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((category: string) => (
                     <SelectItem key={category} value={category}>
                       {category}
                     </SelectItem>
@@ -334,10 +134,10 @@ export function Homepage() {
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCourses.map((course) => (
+                {filteredCourses.map((course: any) => (
                   <Card key={course.id}>
                     <CardHeader>
-                      <CardTitle>{course.title}</CardTitle>
+                      <CardTitle>{course.id}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-muted-foreground">
@@ -348,7 +148,7 @@ export function Homepage() {
                       </p>
                     </CardContent>
                     <CardFooter>
-                      <Link href={`/detail/${1}`}>
+                      <Link href={`/detail/${course.title}`}>
                         <Button variant="outline" className="w-full">
                           View Course
                         </Button>
@@ -362,9 +162,11 @@ export function Homepage() {
         </section>
       </main>
 
-      <footer className="bg-muted mt-12 py-6">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 FreeCourseHub. All rights reserved.</p>
+      <footer className="bg-muted py-8">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            &copy; 2024 FreeCourseHub. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
