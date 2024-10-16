@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { allCourses } from "@/lib/data";
+import useDataStore from "@/store/dataContext";
 
 // Sample course data (in a real app, this would come from an API or database)
 const courses = [
@@ -47,9 +48,10 @@ const courses = [
 ];
 
 export function CourseDetailPageComponent() {
+  const data = useDataStore((state) => state.data);
   const params = useParams();
   const id = typeof params.id === "string" ? parseInt(params.id, 10) : NaN;
-  const course = allCourses.find((c) => c.id === id);
+  const course = data.find((c) => c.id === id);
 
   if (!course) {
     return (
@@ -139,7 +141,9 @@ export function CourseDetailPageComponent() {
               </div>
             </CardContent>
             <div className="bg-muted p-6 md:p-8">
-              <Button className="w-full text-lg py-6">Enroll Now</Button>
+              <Link href={course.link} target="_blank">
+                <Button className="w-full text-lg py-6">Enroll Now</Button>
+              </Link>
             </div>
           </Card>
         </div>

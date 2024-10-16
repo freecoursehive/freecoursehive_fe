@@ -19,8 +19,7 @@ import {
 } from "@/components/ui/select";
 import { BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { allCourses } from "@/lib/data";
-
+import useDataStore from "@/store/dataContext";
 
 // This would typically come from an API or database
 // This would typically come from an API or database
@@ -32,9 +31,10 @@ export function Homepage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const [filteredCourses, setFilteredCourses] = useState(allCourses);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const setData = useDataStore((state) => state.setData);
 
   // Fetch data from API when the component mounts
   useEffect(() => {
@@ -42,33 +42,36 @@ export function Homepage() {
       try {
         const response = await fetch("http://localhost:5000/api/courses");
         const data = await response.json();
-        console.log(data);  // Log the response data to inspect its structure
+        console.log(data); // Log the response data to inspect its structure
         setAllCourses(data);
         setFilteredCourses(data);
+        setData(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
       }
     };
-  
+
     fetchCourses();
   }, []);
-  
+
   // Filter courses based on search term and selected category
   useEffect(() => {
     const filtered = allCourses.filter(
       (course: any) =>
         (course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           course.provider.toLowerCase().includes(searchTerm.toLowerCase())) &&
-          (selectedCategory === "" || selectedCategory === "all" || course.category === selectedCategory)
+        (selectedCategory === "" ||
+          selectedCategory === "all" ||
+          course.category === selectedCategory)
     );
     setFilteredCourses(filtered);
 
     setCurrentPage(1);
   }, [searchTerm, selectedCategory]);
 
-
-
-  const categories = [...new Set(allCourses.map((course: any) => course.category))];
+  const categories = [
+    ...new Set(allCourses.map((course: any) => course.category)),
+  ];
 
   const pageCount = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
   // paginate the filtered courses by slicing the array
@@ -155,7 +158,6 @@ export function Homepage() {
                 No courses found. Try adjusting your search or filter.
               </p>
             ) : (
-
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paginatedCourses.map((course) => (
@@ -207,7 +209,6 @@ export function Homepage() {
                   </Button>
                 </div>
               </>
-
             )}
           </div>
         </section>
