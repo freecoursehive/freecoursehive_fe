@@ -17,15 +17,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { BookOpen } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { allCourses } from "@/lib/data";
 
-// Fetch data from API and populate the courses array
+
+// This would typically come from an API or database
+// This would typically come from an API or database
+
+const ITEMS_PER_PAGE = 12;
+
 export function Homepage() {
   const [allCourses, setAllCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [filteredCourses, setFilteredCourses] = useState([]);
+
+  const [filteredCourses, setFilteredCourses] = useState(allCourses);
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   // Fetch data from API when the component mounts
   useEffect(() => {
@@ -53,9 +62,22 @@ export function Homepage() {
           (selectedCategory === "" || selectedCategory === "all" || course.category === selectedCategory)
     );
     setFilteredCourses(filtered);
-  }, [searchTerm, selectedCategory, allCourses]);
+
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory]);
+
+
 
   const categories = [...new Set(allCourses.map((course: any) => course.category))];
+
+  const pageCount = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
+  // paginate the filtered courses by slicing the array
+  // the start index is (currentPage - 1) * ITEMS_PER_PAGE
+  // the end index is currentPage * ITEMS_PER_PAGE
+  const paginatedCourses = filteredCourses.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -128,35 +150,64 @@ export function Homepage() {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6">Available Courses</h2>
-            {filteredCourses.length === 0 ? (
+            {paginatedCourses.length === 0 ? (
               <p className="text-center text-muted-foreground">
                 No courses found. Try adjusting your search or filter.
               </p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCourses.map((course: any) => (
-                  <Card key={course.id}>
-                    <CardHeader>
-                      <CardTitle>{course.id}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        Provider: {course.provider}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Category: {course.category}
-                      </p>
-                    </CardContent>
-                    <CardFooter>
-                      <Link href={`/detail/${course.title}`}>
-                        <Button variant="outline" className="w-full">
-                          View Course
-                        </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
+
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {paginatedCourses.map((course) => (
+                    <Card key={course.id}>
+                      <CardHeader>
+                        <CardTitle>{course.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground">
+                          Provider: {course.provider}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Category: {course.category}
+                        </p>
+                      </CardContent>
+                      <CardFooter>
+                        <Link href={`/detail/${course.id}`}>
+                          <Button variant="outline" className="w-full">
+                            View Course
+                          </Button>
+                        </Link>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+                <div className="mt-8 flex justify-center items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    }
+                    disabled={currentPage === 1}
+                  >
+                    <ChevronLeft className="h-4 w-4 mr-2" />
+                    Previous
+                  </Button>
+                  <span className="text-sm text-muted-foreground">
+                    Page {currentPage} of {pageCount}
+                  </span>
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.min(prev + 1, pageCount))
+                    }
+                    disabled={currentPage === pageCount}
+                  >
+                    Next
+                    <ChevronRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </div>
+              </>
+
             )}
           </div>
         </section>
