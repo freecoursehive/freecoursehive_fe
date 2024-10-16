@@ -41,7 +41,9 @@ export function Homepage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/courses");
+        const response = await fetch(
+          "https://scrapper-9rm2.onrender.com/api/courses"
+        );
         const data = await response.json();
         console.log(data); // Log the response data to inspect its structure
         setAllCourses(data);
