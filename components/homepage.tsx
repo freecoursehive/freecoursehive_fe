@@ -42,7 +42,7 @@ export function Homepage() {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          "https://scrapper-9rm2.onrender.com/api/courses"
+          "https://127.0.0.1:5000/api/courses"
         );
         const data = await response.json();
         console.log(data); // Log the response data to inspect its structure
