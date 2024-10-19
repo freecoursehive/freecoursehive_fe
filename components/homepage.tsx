@@ -31,6 +31,7 @@ export function Homepage() {
   const [allCourses, setAllCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,16 +42,18 @@ export function Homepage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
+        setLoading(true);
         const response = await fetch(
-          "https://127.0.0.1:5000/api/courses"
+          "https://scrapper-9rm2.onrender.com/api/courses"
         );
         const data = await response.json();
-        console.log(data); // Log the response data to inspect its structure
         setAllCourses(data);
         setFilteredCourses(data);
         setData(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -70,7 +73,7 @@ export function Homepage() {
     setFilteredCourses(filtered);
 
     setCurrentPage(1);
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, allCourses]);
 
   const categories = [
     ...new Set(allCourses.map((course: any) => course.category)),
@@ -91,7 +94,7 @@ export function Homepage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-6 w-6" />
-            <span className="text-xl font-bold">FreeCourseBox</span>
+            <span className="text-xl font-bold">FreeCourseHive</span>
           </Link>
           <nav>
             <ul className="flex space-x-4">
@@ -156,7 +159,17 @@ export function Homepage() {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6">Available Courses</h2>
-            {paginatedCourses.length === 0 ? (
+            {/* loading state
+            {loading && (
+              <p className="text-center text-muted-foreground">
+                Loading courses...
+              </p>
+            )} */}
+            {loading ? (
+              <p className="text-center text-muted-foreground">
+                Loading courses...
+              </p>
+            ) : paginatedCourses.length === 0 ? (
               <p className="text-center text-muted-foreground">
                 No courses found. Try adjusting your search or filter.
               </p>
