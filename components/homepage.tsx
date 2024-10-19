@@ -233,7 +233,7 @@ export function Homepage() {
       <footer className="bg-muted py-8">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">
-            &copy; 2024 FreeCourseHub. All rights reserved.
+            &copy; 2024 FreeCourseHive. All rights reserved.
           </p>
         </div>
       </footer>

@@ -9,24 +9,66 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 // import { allCourses } from "@/lib/data";
-import useDataStore from "@/store/dataContext";
+
+import { useEffect, useState } from "react";
 
 // Sample course data (in a real app, this would come from an API or database)
 
 export function CourseDetailPageComponent() {
-  const data = useDataStore((state: any) => state.data);
+  const [loading, setLoading] = useState(false);
+  const [allCourses, setAllCourses] = useState([]);
+
+  // Fetch data from API when the component mounts
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          "https://scrapper-9rm2.onrender.com/api/courses"
+        );
+        const data = await response.json();
+        setAllCourses(data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
   const params = useParams();
   const id = typeof params.id === "string" ? parseInt(params.id, 10) : NaN;
-  const course = data.find((c: any) => c.id === id);
+  const course = allCourses.find((c: any) => c.id === id);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Card className="w-full max-w-md">
+          <CardContent className="pt-6">
+            <h1 className="text-2xl font-bold mb-4">Loading...</h1>
+            <p className="text-muted-foreground mb-6">
+              Please wait while we load the course details.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (!course) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Card className="w-full max-w-md">
           <CardContent className="pt-6">
-            <h1 className="text-2xl font-bold mb-4">Course Not Found</h1>
+            {/* not found or loading */}
+            <h1 className="text-2xl font-bold mb-4">
+              Course Not Found Or Loading
+            </h1>
             <p className="text-muted-foreground mb-6">
-              The requested course could not be found.
+              If loading, you will be moved to the loading screen in a while or
+              Course Not Found!
             </p>
             <Link href="/" passHref>
               <Button className="w-full">
@@ -117,7 +159,7 @@ export function CourseDetailPageComponent() {
 
       <footer className="bg-muted mt-12">
         <div className="container mx-auto px-4 py-6 text-center text-muted-foreground">
-          <p>&copy; 2024 FreeCourseHub. All rights reserved.</p>
+          <p>&copy; 2024 FreeCourseHive. All rights reserved.</p>
         </div>
       </footer>
     </div>

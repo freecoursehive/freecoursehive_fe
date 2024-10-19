@@ -14,7 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "FreeCourseBox",
+  title: "FreeCourseHive",
   description: "Free courses on the web",
 };
 
