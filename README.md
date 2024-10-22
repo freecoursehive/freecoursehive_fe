@@ -11,7 +11,7 @@ Welcome to **Free Course Hive**, an open-source platform that aggregates free on
 **This project is open for contribution!** Whether you're a beginner or an experienced developer, you're welcome to contribute to the development of this platform. Please read the Contributing section below for more details.
 
 
-For the **backend** code and API, please visit the [Free Course Hive Backend Repository](https://pages.github.com/).
+For the **backend** code and API, please visit the [Free Course Hive Backend Repository](https://github.com/freecoursehive/freecoursehive_be).
 
 
 
@@ -108,7 +108,7 @@ To get started with the frontend of Free Course Hive, follow these steps:
 ## Backend Setup
 
 
-The backend that supports this frontend is hosted in a separate repository. Follow the installation instructions in the [Free Course Hive Backend Repository](https://pages.github.com/). The backend requires a Python environment, Flask, and the necessary dependencies listed in the requirements.txt.
+The backend that supports this frontend is hosted in a separate repository. Follow the installation instructions in the [Free Course Hive Backend Repository](https://github.com/freecoursehive/freecoursehive_be). The backend requires a Python environment, Flask, and the necessary dependencies listed in the requirements.txt.
 
 
 
