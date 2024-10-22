@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Free Course Hive (Frontend)
 
-## Getting Started
+Welcome to **Free Course Hive**, an open-source platform that aggregates free online courses from various websites. This is the frontend portion of the project, built using React, Next.js, Tailwind CSS, and ShadUI. Our mission is to make learning accessible to everyone by providing a curated list of high-quality free courses.
 
-First, run the development server:
+**This project is open for contribution!** Whether you're a beginner or an experienced developer, you're welcome to contribute to the development of this platform. Please read the Contributing section below for more details.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+For the **backend** code and API, please visit the [Free Course Hive Backend Repository](https://pages.github.com/).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Table of Contents
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Features
+- Goals
+- Technologies Used
+- Installation
+- Usage
+- Contributing
+- License
+  
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- Course Aggregation: Displays courses scraped from various websites.
+- User-Friendly Interface: Built with React, Next.js, and styled using Tailwind CSS and ShadUI for a modern look.
+- Responsive Design: Works seamlessly on all devices.
+- Search and Filter: Easily find courses by category, level, or keyword.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Goals
 
-## Deploy on Vercel
+- Accessibility: To provide a centralized platform where users can easily discover and enroll in free courses.
+- Community Engagement: Encourage contributions from the community to expand the list of courses and improve the platform.
+- Continuous Improvement: Regularly update the platform with new courses and features based on user feedback.
+- Educational Empowerment: Support learners by providing resources that help them develop new skills without financial barriers.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Technologies Used
+
+- Frontend:
+  - React
+  - Next.js
+  - Tailwind CSS
+  - ShadUI
+ 
+- Backend:
+  - The backend of this project, which handles course scraping and API creation, is built with Flask. You can find the backend repository here.
+ 
+
+## Installation
+
+To get started with the frontend of Free Course Hive, follow these steps:
+
+
+## Frontend Setup
+
+1. Clone the repository:
+   
+   ```
+   git clone https://github.com/yourusername/freecoursehive.git
+   ```
+   
+2. Navigate into the project directory:
+
+   ```
+   cd freecoursehive
+   ```
+
+3. Install the required dependencies:
+
+    ```
+    npm install
+    ```
+
+4. Start the development server:
+
+   ```
+   npm run dev
+   ```
+
+5. Open your browser and navigate to `http://localhost:3000` to view the application.
+
+
+
+## Backend Setup
+
+The backend that supports this frontend is hosted in a separate repository. Follow the installation instructions in the [Free Course Hive Backend Repository](https://pages.github.com/). The backend requires a Python environment, Flask, and the necessary dependencies listed in the requirements.txt.
+
+
+## Usage
+
+1. Browse the available courses on the homepage.
+2. Use the search bar to find specific topics.
+3. Click on a course to view more details and enroll.
+
+
+## Contributing
+
+We welcome contributions from everyone! Whether you want to fix a bug, add a new feature, or improve documentation, we’d love your help. Please refer to our CONTRIBUTING.md file for detailed instructions on how to contribute.
+
+If you’re contributing to the backend, be sure to check out the backend's README for specific instructions on setting up and contributing to the backend portion.
+
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
