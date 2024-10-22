@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/select";
 import { BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import useDataStore from "@/store/dataContext";
 
 // This would typically come from an API or database
 // This would typically come from an API or database
@@ -36,20 +35,15 @@ export function Homepage() {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const setData = useDataStore((state: any) => state.setData);
-
   // Fetch data from API when the component mounts
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://scrapper-9rm2.onrender.com/api/courses"
-        );
+        const response = await fetch("http://127.0.0.1:5000/api/courses");
         const data = await response.json();
         setAllCourses(data);
         setFilteredCourses(data);
-        setData(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
       } finally {
