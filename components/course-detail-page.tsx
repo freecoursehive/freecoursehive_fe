@@ -39,7 +39,7 @@ export function CourseDetailPageComponent() {
   }, []);
 
   const params = useParams();
-  const id = typeof params.id === "string" ? parseInt(params.id, 10) : NaN;
+  const id = (params.id, 10);
   const course: any = allCourses.find((c: any) => c.id === id);
 
   if (loading) {
