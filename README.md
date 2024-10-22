@@ -8,7 +8,7 @@
 Welcome to **Free Course Hive**, an open-source platform that aggregates free online courses from various websites. This is the frontend portion of the project, built using React, Next.js, Tailwind CSS, and ShadUI. Our mission is to make learning accessible to everyone by providing a curated list of high-quality free courses.
 
 
-**This project is open for contribution!** Whether you're a beginner or an experienced developer, you're welcome to contribute to the development of this platform. Please read the Contributing section below for more details.
+**This project is open for contribution!** Whether you're a beginner or an experienced developer, you're welcome to contribute to the development of this platform. Please read the [Contributing section](https://github.com/freecoursehive/freecoursehive_fe/blob/main/CONTRIBUTING.md) for more details.
 
 
 For the **backend** code and API, please visit the [Free Course Hive Backend Repository](https://github.com/freecoursehive/freecoursehive_be).
@@ -123,7 +123,7 @@ The backend that supports this frontend is hosted in a separate repository. Foll
 ## Contributing
 
 
-We welcome contributions from everyone! Whether you want to fix a bug, add a new feature, or improve documentation, we’d love your help. Please refer to our CONTRIBUTING.md file for detailed instructions on how to contribute.
+We welcome contributions from everyone! Whether you want to fix a bug, add a new feature, or improve documentation, we’d love your help. Please refer to our [CONTRIBUTING.md](https://github.com/freecoursehive/freecoursehive_fe/blob/main/CONTRIBUTING.md) file for detailed instructions on how to contribute.
 
 
 If you’re contributing to the backend, be sure to check out the backend's README for specific instructions on setting up and contributing to the backend portion.
