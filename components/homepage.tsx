@@ -40,7 +40,9 @@ export function Homepage() {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://127.0.0.1:5000/api/courses");
+        const response = await fetch(
+          "https://freecoursehive-be.onrender.com/api/courses"
+        );
         const data = await response.json();
         setAllCourses(data);
         setFilteredCourses(data);

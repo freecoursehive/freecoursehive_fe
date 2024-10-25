@@ -24,7 +24,7 @@ export function CourseDetailPageComponent() {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://scrapper-9rm2.onrender.com/api/courses"
+          "https://freecoursehive-be.onrender.com/api/courses"
         );
         const data = await response.json();
         setAllCourses(data);
@@ -41,6 +41,8 @@ export function CourseDetailPageComponent() {
   const params = useParams();
   const id = (params.id, 10);
   const course: any = allCourses.find((c: any) => c.id === id);
+
+  console.log(course);
 
   if (loading) {
     return (
