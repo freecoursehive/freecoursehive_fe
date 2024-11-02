@@ -2,7 +2,7 @@
 import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
 
-const API_URL = "https://freecoursehive-be.onrender.com/api/courses";
+// const API_URL = "https://freecoursehive-be.onrender.com/api/courses";
 
 export async function GET() {
   const baseUrl = "https://www.freecoursehive.com";
@@ -17,23 +17,23 @@ export async function GET() {
   ];
 
   // Fetch dynamic paths from the Flask API
-  let dynamicPaths = [];
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      throw new Error("Failed to fetch courses");
-    }
-    const courses = await response.json();
-    dynamicPaths = courses.map((course) => ({
-      url: `/detail/${course.id}`,
-      priority: 0.7,
-    }));
-  } catch (error) {
-    console.error("Error fetching dynamic paths:", error);
-  }
+  // let dynamicPaths = [];
+  // try {
+  //   const response = await fetch(API_URL);
+  //   if (!response.ok) {
+  //     throw new Error("Failed to fetch courses");
+  //   }
+  //   const courses = await response.json();
+  //   dynamicPaths = courses.map((course) => ({
+  //     url: `/detail/${course.id}`,
+  //     priority: 0.7,
+  //   }));
+  // } catch (error) {
+  //   console.error("Error fetching dynamic paths:", error);
+  // }
 
   // Combine static and dynamic paths
-  const paths = [...staticPaths, ...dynamicPaths];
+  const paths = [...staticPaths];
 
   // Create a sitemap stream
   const stream = new SitemapStream({ hostname: baseUrl });
