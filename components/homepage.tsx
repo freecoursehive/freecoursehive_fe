@@ -152,7 +152,7 @@ export function Homepage() {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          "https://flask-redis-app.onrender.com/api/courses"
+          "https://free-course-hive.onrender.com/api/courses"
         );
         const data = await response.json();
         console.log(data); // Log the response data to inspect its structure
