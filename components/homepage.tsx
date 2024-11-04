@@ -238,8 +238,16 @@ export function Homepage() {
     <div className="min-h-screen bg-background flex flex-col">
       <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b h-16">
         <div className="container mx-auto px-4 h-full flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image src={logo} alt="Logo" width={50} height={50} />
+          <Link href="/" className="flex items-center space-x-2 relative">
+            <Image
+              src={logo}
+              alt="Logo"
+              width={50} // Adjust width as needed
+              height={50} // Adjust height as needed
+              layout="fixed"
+              className="object-cover"
+            />
+            <h3 className="text-xl hidden md:flex">FreeCoursehive</h3>
           </Link>
           <nav className="hidden md:flex items-center space-x-4">
             <Select
