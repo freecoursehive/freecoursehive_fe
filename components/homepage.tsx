@@ -29,7 +29,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 9;
 
 // This would typically come from an API or database
 const allCourses = [
@@ -152,40 +152,45 @@ export function Homepage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/courses");
+        const response = await fetch(
+          "https://flask-redis-app.onrender.com/api/courses"
+        );
         const data = await response.json();
         console.log(data); // Log the response data to inspect its structure
         setAllCourses(data);
         setFilteredCourses(data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      }
-    };
-
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        // Replace this with your actual API endpoint
-        const response = await fetch("https://api.example.com/courses");
-        if (!response.ok) {
-          throw new Error("Failed to fetch courses");
-        }
-        const data = await response.json();
-        setCourses(data);
-        console.log(data);
-
         setIsLoading(false);
       } catch (error) {
         console.error("Error fetching courses:", error);
+      } finally {
         setIsLoading(false);
       }
     };
 
     fetchCourses();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchCourses = async () => {
+  //     try {
+  //       // Replace this with your actual API endpoint
+  //       const response = await fetch("http://localhost:5000/api/courses");
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch courses");
+  //       }
+  //       const data = await response.json();
+  //       setCourses(data);
+  //       console.log(data);
+
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching courses:", error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchCourses();
+  // }, []);
 
   useEffect(() => {
     const filtered = allCourse?.filter(
@@ -242,7 +247,7 @@ export function Homepage() {
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-6 w-6" />
             <span className="text-xl font-bold hidden md:inline">
-              FreeCourseHub
+              FreeCourseHive
             </span>
           </Link>
           <nav className="hidden md:flex items-center space-x-4">
@@ -325,7 +330,7 @@ export function Homepage() {
               from top educational platforms.
             </p>
             <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
-              FreeCourseHub offers a comprehensive list of free courses in
+              FreeCourseHive offers a comprehensive list of free courses in
               programming, design, marketing, data science, and more, sourced
               from top educational platforms like Coursera, edX, and Udemy.
             </p>
@@ -394,7 +399,11 @@ export function Homepage() {
                           </p>
                         </CardContent>
                         <CardFooter className="p-0 pt-4">
-                          <Button className="w-full">View Course</Button>
+                          <Button className="w-full" asChild>
+                            <Link href={`/detail/${course.id}`}>
+                              View Course
+                            </Link>
+                          </Button>
                         </CardFooter>
                       </div>
                     </Card>
@@ -434,9 +443,9 @@ export function Homepage() {
       <footer className="bg-muted mt-12 py-12">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-bold mb-4">About FreeCourseHub</h3>
+            <h3 className="font-bold mb-4">About FreeCourseHive</h3>
             <p className="text-sm text-muted-foreground">
-              FreeCourseHub is your gateway to free online education. We curate
+              FreeCourseHive is your gateway to free online education. We curate
               the best free courses from around the web to help you learn new
               skills and advance your career.
             </p>
@@ -500,7 +509,7 @@ export function Homepage() {
           </div>
         </div>
         <div className="container mx-auto px-4 mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 FreeCourseHub. All rights reserved.</p>
+          <p>&copy; 2024 FreeCourseHive. All rights reserved.</p>
         </div>
       </footer>
     </div>
