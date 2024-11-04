@@ -135,7 +135,7 @@ export function Homepage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [courses, setCourses] = useState(allCourses);
+  // const [courses, setCourses] = useState(allCourses);
   const [filteredCourses, setFilteredCourses] = useState(allCourses);
   const [paginatedCourses, setPaginatedCourses] = useState<any>([]);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -203,7 +203,7 @@ export function Homepage() {
     );
     setFilteredCourses(filtered);
     setCurrentPage(1);
-  }, [searchTerm, selectedCategory, courses]);
+  }, [searchTerm, selectedCategory]);
 
   useEffect(() => {
     const paginated = filteredCourses.slice(
