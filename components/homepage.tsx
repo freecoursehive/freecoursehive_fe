@@ -31,7 +31,6 @@ import Image from "next/image";
 
 const ITEMS_PER_PAGE = 9;
 
-// This would typically come from an API or database
 const allCourses = [
   {
     id: 1,
