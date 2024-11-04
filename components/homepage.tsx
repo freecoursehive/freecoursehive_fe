@@ -19,15 +19,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  BookOpen,
-  Search,
-  ChevronLeft,
-  ChevronRight,
-  Menu,
-} from "lucide-react";
+import { Search, ChevronLeft, ChevronRight, Menu } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import logo from "@/app/logo.png";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -244,10 +239,7 @@ export function Homepage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-background border-b h-16">
         <div className="container mx-auto px-4 h-full flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <BookOpen className="h-6 w-6" />
-            <span className="text-xl font-bold hidden md:inline">
-              FreeCourseHive
-            </span>
+            <Image src={logo} alt="Logo" width={50} height={50} />
           </Link>
           <nav className="hidden md:flex items-center space-x-4">
             <Select
@@ -490,12 +482,12 @@ export function Homepage() {
             <h3 className="font-bold mb-4">Legal</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-sm hover:underline">
+                <Link href="/privacy" className="text-sm hover:underline">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-sm hover:underline">
+                <Link href="/terms" className="text-sm hover:underline">
                   Terms of Service
                 </Link>
               </li>
