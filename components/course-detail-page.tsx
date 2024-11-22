@@ -83,7 +83,7 @@ export function CourseDetailPageComponent() {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-6 w-6" />
-            <span className="text-xl font-bold">FreeCourseHub</span>
+            <span className="text-xl font-bold">FreeCourseHive</span>
           </Link>
           <Link
             href="/"

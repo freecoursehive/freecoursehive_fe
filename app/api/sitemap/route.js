@@ -12,7 +12,8 @@ export async function GET() {
     { url: "/", priority: 1.0 }, // Index page with priority 1.0
     { url: "/about", priority: 0.7 },
     { url: "/contact", priority: 0.7 },
-    { url: "/courses", priority: 0.7 },
+    { url: "/privacy", priority: 0.7 },
+    { url: "/terms", priority: 0.7 },
     // Add other static paths here
   ];
 
