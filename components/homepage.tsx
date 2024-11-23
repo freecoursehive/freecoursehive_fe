@@ -138,8 +138,8 @@ export function Homepage() {
   const courseSectionRef = useRef<HTMLElement>(null);
 
   const categories = [
-    "All Categories",
-    ...new Set(allCourse.map((course: any) => course.category)),
+    "All Providers",
+    ...new Set(allCourse.map((course: any) => course.provider)),
   ];
 
   // Fetch data from API when the component mounts
@@ -192,8 +192,8 @@ export function Homepage() {
         (course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           course.provider.toLowerCase().includes(searchTerm.toLowerCase())) &&
         (selectedCategory === "" ||
-          selectedCategory === "All Categories" ||
-          course.category === selectedCategory)
+          selectedCategory === "All Providers" ||
+          course.provider === selectedCategory)
     );
     setFilteredCourses(filtered);
     setCurrentPage(1);
@@ -255,7 +255,7 @@ export function Homepage() {
               onValueChange={handleCategoryChange}
             >
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select Category" />
+                <SelectValue placeholder="Select Provider" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category: any) => (
@@ -278,7 +278,7 @@ export function Homepage() {
               onValueChange={handleCategoryChange}
             >
               <SelectTrigger className="w-[140px]">
-                <SelectValue placeholder="Category" />
+                <SelectValue placeholder="Provider" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category: any) => (
@@ -340,7 +340,7 @@ export function Homepage() {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 space-y-4 md:space-y-0">
               <h2 className="text-2xl font-bold">
-                {selectedCategory && selectedCategory !== "All Categories"
+                {selectedCategory && selectedCategory !== "All Providers"
                   ? `Available Courses in ${selectedCategory}`
                   : "Available Courses"}
               </h2>
@@ -372,15 +372,15 @@ export function Homepage() {
                   {paginatedCourses.map((course: any) => (
                     <Card
                       key={course.id}
-                      className="flex flex-col h-full overflow-hidden p-0"
+                      className="flex flex-col h-full overflow-hidden p-0 group"
                     >
                       <div className="relative w-full pt-[56.25%]">
                         <Image
                           src={course.image}
                           alt={`Cover image for ${course.title}`}
-                          height={200}
-                          width={200}
-                          className="absolute inset-0 h-full w-full object-cover"
+                          layout="fill"
+                          objectFit="cover"
+                          className="transition-transform duration-300 ease-in-out group-hover:scale-105"
                         />
                       </div>
                       <div className="flex flex-col flex-grow p-6">
@@ -411,8 +411,11 @@ export function Homepage() {
                 <div className="mt-8 flex justify-center items-center space-x-2">
                   <Button
                     variant="outline"
-                    onClick={() =>
+                    onClick={() => {
+
                       setCurrentPage((prev) => Math.max(prev - 1, 1))
+                      scrollToSection()
+                    }
                     }
                     disabled={currentPage === 1}
                   >
@@ -424,8 +427,11 @@ export function Homepage() {
                   </span>
                   <Button
                     variant="outline"
-                    onClick={() =>
+                    onClick={() => {
+
                       setCurrentPage((prev) => Math.min(prev + 1, pageCount))
+                      scrollToSection()
+                    }
                     }
                     disabled={currentPage === pageCount}
                   >
