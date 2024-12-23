@@ -147,7 +147,7 @@ export function Homepage() {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          "https://free-course-hive.onrender.com/api/courses"
+          "https://free-course-hive-e68m.onrender.com/api/courses"
         );
         const data = await response.json();
         console.log(data); // Log the response data to inspect its structure
@@ -412,11 +412,9 @@ export function Homepage() {
                   <Button
                     variant="outline"
                     onClick={() => {
-
-                      setCurrentPage((prev) => Math.max(prev - 1, 1))
-                      scrollToSection()
-                    }
-                    }
+                      setCurrentPage((prev) => Math.max(prev - 1, 1));
+                      scrollToSection();
+                    }}
                     disabled={currentPage === 1}
                   >
                     <ChevronLeft className="h-4 w-4 mr-2" />
@@ -428,11 +426,9 @@ export function Homepage() {
                   <Button
                     variant="outline"
                     onClick={() => {
-
-                      setCurrentPage((prev) => Math.min(prev + 1, pageCount))
-                      scrollToSection()
-                    }
-                    }
+                      setCurrentPage((prev) => Math.min(prev + 1, pageCount));
+                      scrollToSection();
+                    }}
                     disabled={currentPage === pageCount}
                   >
                     Next

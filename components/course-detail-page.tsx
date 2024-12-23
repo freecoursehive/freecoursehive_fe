@@ -21,7 +21,7 @@ export function CourseDetailPageComponent() {
       try {
         setLoading(true);
         const response = await fetch(
-          "https://free-course-hive.onrender.com/api/courses"
+          "https://free-course-hive-e68m.onrender.com/api/courses"
         );
         const data = await response.json();
         setAllCourses(data);
